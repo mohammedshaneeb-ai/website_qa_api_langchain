@@ -1,6 +1,6 @@
 from langchain.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chat_models import ChatOpenAI
@@ -38,7 +38,7 @@ def create_db(website_link):
     print(docs)
 
     ## Embedding
-    embedding = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    embedding = OpenAIEmbeddings()
 
     ## Vector Store
     db = Chroma.from_documents(docs,embedding)
