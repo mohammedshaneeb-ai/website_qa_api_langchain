@@ -41,7 +41,7 @@ def create_db(website_link):
     embedding = OpenAIEmbeddings()
 
     ## Vector Store
-    db = Chroma.from_documents(docs,embedding)
+    db = FAISS.from_documents(docs,embedding)
 
     return db
 
