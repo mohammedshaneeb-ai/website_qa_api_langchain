@@ -7,34 +7,34 @@ app = FastAPI()
 
 class InputData(BaseModel):
     website_link: str
-    user_id: str
+    webpage_id: str
 
-user_vectorstores = {}
+website_vectorstores = {}
 
 
 @app.post("/process_data/")
 async def process_data(input_data: InputData):
     website_link = input_data.website_link
-    user_id = input_data.user_id
+    webpage_id = input_data.webpage_id
 
     # Create a vectorstore instance based on the website_link (you need to implement this)
     db = create_db(website_link)
 
-    # Store the vectorstore instance in the user_vectorstores dictionary
-    user_vectorstores[user_id] = db
+    # Store the vectorstore instance in the website_vectorstores dictionary
+    website_vectorstores[webpage_id] = db
 
-    return {"message": "Vectorstore assigned to user."}
+    return {"message": "Vectorstore assigned to Webpage."}
 
 
 @app.post("/answer_question/")
-async def answer_question(question: str, user_id: str):
-    # Retrieve the user's vectorstore instance from the dictionary
-    db = user_vectorstores.get(user_id)
+async def answer_question(question: str, webpage_id: str):
+    # Retrieve the website's vectorstore instance from the dictionary
+    db = website_vectorstores.get(webpage_id)
 
     if db is None:
-        return {"error": "User not found or vectorstore not assigned."}
+        return {"error": "webpage not found or vectorstore not assigned."}
 
-    # Use your utility functions to find the answer based on the question and the user's vectorstore instance
+    # Use your utility functions to find the answer based on the question and the website's vectorstore instance
     answer = find_answer(question, db)  # Implement this function
 
     return {"answer": answer}
