@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from utils import create_db,find_answer # Import your utility function
+from utils import create_db,find_answer 
 
 
 app = FastAPI()
@@ -17,7 +17,7 @@ async def process_data(input_data: InputData):
     website_link = input_data.website_link
     webpage_id = input_data.webpage_id
 
-    # Create a vectorstore instance based on the website_link (you need to implement this)
+    # Create a vectorstore instance based on the website_link 
     db = create_db(website_link)
 
     # Store the vectorstore instance in the website_vectorstores dictionary
@@ -34,8 +34,8 @@ async def answer_question(question: str, webpage_id: str):
     if db is None:
         return {"error": "webpage not found or vectorstore not assigned."}
 
-    # Use your utility functions to find the answer based on the question and the website's vectorstore instance
-    answer = find_answer(question, db)  # Implement this function
+    # Using utility functions to find the answer based on the question and the website's vectorstore instance
+    answer = find_answer(question, db)  
 
     return {"answer": answer}
 
